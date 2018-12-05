@@ -19,11 +19,3 @@ export const store = createStore(
         applyMiddleware(thunk)
     )
 )
-
-store.dispatch(
-    setUsers([{
-        name: {
-            first: 'Ala'
-        }
-    }])
-)

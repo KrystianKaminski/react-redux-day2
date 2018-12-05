@@ -53,8 +53,24 @@ export default (state = INITIAL_STATE, action) => {
                 users: action.users
             }
         case START_FETCHING:
+            return {
+                ...state,
+                isFetching: true,
+                isError: false
+            }
         case STOP_FETCHING:
+            return {
+                ...state,
+                isFetching: false,
+                isError: false
+
+            }
         case ERROR_FETCHING:
+            return {
+                ...state,
+                isError: true,
+                isFetching: false
+            }
 
         default:
             return state

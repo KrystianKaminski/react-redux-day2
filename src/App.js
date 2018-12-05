@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 
+import Counter from './Counter'
+
 const App = (props) => (
-  <div>Hello</div>
+  <div>
+    <Counter/>
+  </div>
 )
 
 export default App;

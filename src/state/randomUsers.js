@@ -1,17 +1,36 @@
 const SET_USERS = 'randomUsers/SET_USERS'
+const START_FETCHING = 'randomUsers/START_FETCHING'
+const STOP_FETCHING = 'randomUsers/STOP_FETCHING'
+const ERROR_FETCHING = 'randomUsers/ERROR_FETCHING'
 
 
 // redux-thunk calls
 export const fetchUsersAsyncAction = () => (dispatch, getState) => {
-    
+    dispatch(startFetchingAction())
     fetch('https://randomuser.me/api')
         .then(r => r.json())
         .then(data => {
-          dispatch(
-            setUsersAction(data.results)
-          )
+            dispatch(
+                setUsersAction(data.results)
+            )
+            dispatch(stopFetchingAction())
+        })
+        .catch(() => {
+            dispatch(errorFetchingAction())
         })
 }
+
+const stopFetchingAction = () => ({
+    type: STOP_FETCHING
+})
+
+const startFetchingAction = () => ({
+    type: START_FETCHING
+})
+
+const errorFetchingAction = () => ({
+    type: ERROR_FETCHING
+})
 
 const setUsersAction = users => ({
     type: SET_USERS,
@@ -20,18 +39,22 @@ const setUsersAction = users => ({
 
 
 const INITIAL_STATE = {
-    users: []
+    users: [],
+    isFetching: false,
+    isError: false
 }
 
 export default (state = INITIAL_STATE, action) => {
-    switch(action.type) {
+    switch (action.type) {
 
-        case SET_USERS: 
+        case SET_USERS:
             return {
                 ...state,
                 users: action.users
             }
-
+        case START_FETCHING:
+        case STOP_FETCHING:
+        case ERROR_FETCHING:
 
         default:
             return state

@@ -8,7 +8,7 @@ class RandomUsers extends React.Component {
 
     componentDidMount() {
         this.props._fetchUsersAsyncAction(
-            'https://randomuser.me/api'
+            'https://randomuser.me/aapi'
         )
     }
 
@@ -17,7 +17,17 @@ class RandomUsers extends React.Component {
             <div>
                 {
                     (this.props._isError) ?
-                        <div>Error</div>
+                        <div>
+                            Error
+                            <button
+                                onClick={() => this.props._fetchUsersAsyncAction(
+                                    'https://randomuser.me/api'
+                                )}
+                            >
+                                Try again!
+                            </button>
+                        </div>
+
                         :
                         (this.props._isFetching) ?
                             <div>Ładowanie...</div>
